@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Croppie and PopupCroppie translation\n"
+"POT-Creation-Date: 2024-06-20 22:34+0300\n"
+"PO-Revision-Date: 2024-06-20 22:55+0300\n"
+"Last-Translator: Tiit Papp <tiit.papp@gmail.com>\n"
+"Language-Team: Tiit Papp - tiit.papp@gmail.com\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: t;p\n"
+"X-Poedit-SearchPath-0: examples\n"
+"X-Poedit-SearchPath-1: src\n"
+
+#: examples/croppie.php:40
+msgid "- Select a destination -"
+msgstr "- Выберите пункт назначения -"
+
+#: examples/croppie.php:43
+msgid "Crop image"
+msgstr "Обрезать изображение"
+
+#: examples/croppie.php:44
+msgid "Crop and save"
+msgstr "Обрезать и сохранить"
+
+#: examples/croppie.php:45
+msgid "Cancel"
+msgstr "Отмена"
+
+#: src/PopupCroppie.php:124
+msgid "Viewport:"
+msgstr "Область просмотра:"
+
+#: src/PopupCroppie.php:126
+msgid "Width"
+msgstr "Ширина"
+
+#: src/PopupCroppie.php:129
+msgid "Height"
+msgstr "Высота"
+
+#: src/PopupCroppie.php:131
+msgid "Enable resize:"
+msgstr "Включить изменение размера:"
+
+#: src/PopupCroppie.php:134
+msgid "Inactive"
+msgstr "Неактивный"
+
+#: src/PopupCroppie.php:139
+msgid "Active"
+msgstr "Активный"
+
+#: src/PopupCroppie.php:142
+msgid "Viewport type:"
+msgstr "Тип области просмотра:"
+
+#: src/PopupCroppie.php:145
+msgid "square"
+msgstr "квадрат"
+
+#: src/PopupCroppie.php:146
+msgid "circle"
+msgstr "круг"
+
+#: src/PopupCroppie.php:149
+msgid "Rotate:"
+msgstr "Поворот:"
+
+#: src/PopupCroppie.php:151
+msgid "Rotate left"
+msgstr "Поверните влево"
+
+#: src/PopupCroppie.php:154
+msgid "Rotate right"
+msgstr "Повернуть вправо"
+
+#: src/PopupCroppie.php:156
+msgid "Destination:"
+msgstr "Место назначения:"
+
+#~ msgid "Configure page"
+#~ msgstr "Configure page"
+
+#~ msgid "Metadata"
+#~ msgstr "Metadata"
