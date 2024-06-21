@@ -14,10 +14,49 @@ Here are some examples. On the left side is the standard solution - Croppie, whi
 On the right side is a customized solution - popupCroppie, where we try to dynamically and conveniently use real-time 
 image resizing with dimension overwriting, switch between circle and square, rotate the image left or right, and save.
 
-Note: There are some temporary folders here where you can save for testing, and a simple PHP upload function has been created. 
-Controls have not been fully developed here. It is up to you to further develop them.
+Note: Please create additional folders in the "examples" directory for testing purposes. You can save and explore files 
+in these folders. A simple PHP upload function has been created, but controls have not been fully developed. It is up 
+to you to further develop them.
 
 ![Image of kukrik](screenshot/croppie_screenhot.png?raw=true)
+
+```
+|_ upload
+    |_ Home
+        |_ test
+        |_ test 2
+    |_ More
+    |_ Organisation
+    |_ Varia
+
+|_ tmp
+    |_ _files
+    
+        |_ large
+            |_ Home
+                |_ test
+                |_ test 2
+            |_ More
+            |_ Organisation
+            |_ Varia
+            
+        |_ medium
+            |_ Home
+                |_ test
+                |_ test 2
+            |_ More
+            |_ Organisation
+            |_ Varia
+            
+        |_ thumbnail
+            |_ Home
+                |_ test
+                |_ test 2
+            |_ More
+            |_ Organisation
+            |_ Varia
+
+```
 
 ## This plugin is still being implemented
 
