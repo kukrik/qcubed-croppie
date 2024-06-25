@@ -5,9 +5,9 @@ namespace QCubed\Plugin\Event;
 use QCubed\Event\EventBase;
 
 /**
- * Class ImageRefresh
+ * Class ChangeObject
  *
- * Identifies a recording event that occurs when a cropped image is sent to recording.
+ * Detects a save event that occurs when a cropped image is sent to save, and can optionally trigger another event on other objects.
  *
  */
 
