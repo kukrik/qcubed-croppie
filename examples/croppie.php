@@ -42,6 +42,9 @@ class ExamplesForm extends Form
         $this->dlgPopup->SaveText = t("Crop and save");
         $this->dlgPopup->CancelText = t("Cancel");
 
+        $this->dlgPopup->addAction(new Q\Plugin\ChangeObject(), new \QCubed\Action\Ajax('objChangeObject_Click'));
+
+
         if ($this->dlgPopup->Language) {
             $this->dlgPopup->AddJavascriptFile(QCUBED_CROPPIE_ASSETS_URL . "/js/i18n/". $this->dlgPopup->Language . ".js");
         }
@@ -53,13 +56,18 @@ class ExamplesForm extends Form
 
         $this->dlgPopup->SelectedImage = "Varia/demo-3.jpg";
         $this->dlgPopup->Data = [
-            ['id' => '/Organisation', 'text' => 'Organisation', 'level' => 0],
-            ['id' => '/Varia', 'text' => 'Varia', 'level' => 0],
-            ['id' => '/', 'text' => 'Home', 'level' => 0],
-            ['id' => '/Home/test 2', 'text' => 'test 2', 'level' => 1],
-            ['id' => '/Home/test', 'text' => 'test', 'level' => 1],
-            ['id' => '/More', 'text' => 'More', 'level' => 0]
+            ['id' => '/Organisation', 'text' => 'Organisation', 'level' => 0, 'folderId' => 2],
+            ['id' => '/Varia', 'text' => 'Varia', 'level' => 0, 'folderId' => 3],
+            ['id' => '/', 'text' => 'Home', 'level' => 0, 'folderId' => 1],
+            ['id' => '/Home/test 2', 'text' => 'test 2', 'level' => 1, 'folderId' => 1],
+            ['id' => '/Home/test', 'text' => 'test', 'level' => 1, 'folderId' => 1],
+            ['id' => '/More', 'text' => 'More', 'level' => 0, 'folderId' => 4]
         ];
+    }
+
+    public function objChangeObject_Click(ActionParams $params)
+    {
+        Application::displayAlert("Works???");
     }
 }
 ExamplesForm::Run('ExamplesForm');

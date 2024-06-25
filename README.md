@@ -3,7 +3,10 @@
 ## Croppie and PopupCroppie for QCubed v4
 
 
-This QCubed plugin utilizes the Croppie plugin: https://foliotek.github.io/Croppie/. Croppie is a fast and easy-to-use image cropping plugin with many configuration options! The goal is to create a simple 
+This QCubed plugin utilizes the Croppie plugin: https://foliotek.github.io/Croppie/. Croppie is a fast, easy to use image 
+cropping plugin with tons of configuration options.
+
+Croppie is a fast and easy-to-use image cropping plugin with many configuration options! The goal is to create a simple 
 core library that can be customized and extended. The homepage of the library is <a href="https://foliotek.github.io/Croppie/">here</a>, 
 and a demo can be found here where you can see usage examples.
 

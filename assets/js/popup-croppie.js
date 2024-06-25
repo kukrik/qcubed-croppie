@@ -196,7 +196,15 @@
             cropper.croppie('rotate', parseInt($(this).data('deg')));
         });
 
+        // Function to get folderId based on the selected value
+        function getFolderIdById(data, selectedId) {
+            var item = data.find(function(element) {
+                return element.id === selectedId;
+            });
+            return item ? item.folderId : null;
+        }
 
+        // Event listener for Select2 change event
         $('.web-vauu-destination').on('change', function() {
             selectedValue = $(this).val();
             if (!selectedValue) {
@@ -301,9 +309,15 @@
                 var xhr = new XMLHttpRequest();
                 var data = new FormData();
 
+                // Get folderId based on the selected value
+                var folderId = getFolderIdById(parsedData, selectedValue);
+
+                //console.log(folderId)
+
                 data.append("cropImage", resp);
                 data.append("fileName", fileName);
                 data.append("relativePath", selectedValue);
+                data.append("folderId", folderId); // Add folderId to the form data
                 xhr.open('POST', options.url, true);
                 xhr.send(data);
             });

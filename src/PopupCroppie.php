@@ -6,6 +6,7 @@ use QCubed\Bootstrap\Bootstrap;
 use QCubed\Control\ControlBase;
 use QCubed\Exception\Caller;
 use QCubed\Exception\InvalidCast;
+use QCubed\Project\Application;
 use QCubed\Type;
 
 /**
@@ -34,6 +35,7 @@ class PopupCroppie extends PopupCroppieGen
     protected $blnAutoOpen = false;
     /** @var bool records whether dialog is open */
     protected $blnIsOpen = false;
+    protected $blnIsRefresh = false;
     protected $blnUseWrapper = true;
 
     /** @var string */
@@ -171,6 +173,30 @@ class PopupCroppie extends PopupCroppieGen
         return $strHtml;
     }
 
+    public function getEndScript()
+    {
+        $strJS = parent::getEndScript();
+
+        $strCtrlJs = <<<FUNC
+$(document).ready(function() {
+    var btn_crop = document.querySelector(".btn-crop");
+    changeObject();
+
+    changeObject = function() {
+        btn_crop.on("changeobject", function(event) {
+           qcubed.recordControlModification(".btn-crop", "_IsChangeObject", true);
+        });
+
+        var ChangeObjectEvent = $.Event("changeobject");
+        btn_crop.trigger(ChangeObjectEvent);
+    }
+});
+FUNC;
+        Application::executeJavaScript($strCtrlJs, Application::PRIORITY_HIGH);
+
+        return $strJS;
+    }
+
     /**
      * @param $strName
      * @return array|bool|callable|float|int|mixed|string|null
@@ -207,6 +233,16 @@ class PopupCroppie extends PopupCroppieGen
     public function __set($strName, $mixValue)
     {
         switch ($strName) {
+            case '_IsChangeObject': // Internal only to detect when recording is triggered.
+                try {
+                    $this->blnIsChangeObject = Type::cast($mixValue, Type::BOOLEAN);
+                    break;
+                } catch (InvalidCast $objExc) {
+                    $objExc->incrementOffset();
+                    throw $objExc;
+                }
+
+
             case "HeaderTitle":
                 try {
                     $this->strHeaderTitle = Type::Cast($mixValue, Type::STRING);
