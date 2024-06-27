@@ -23,6 +23,8 @@ use QCubed\Type;
  * @property string $CancelClass Default "btn-default" background class for "Cancel" button. The background class of
  *                                  the button can be overridden if desired.
  * @property string $CancelText Default button text "Cancel". The button text can be overridden if desired.
+ * @property string $FinalPath Defult null. Outputs the name of the cropped image along with the relative path after saving.
+ *
  *
  * @package QCubed\Plugin
  */
@@ -35,7 +37,7 @@ class PopupCroppie extends PopupCroppieGen
     protected $blnAutoOpen = false;
     /** @var bool records whether dialog is open */
     protected $blnIsOpen = false;
-    protected $blnIsRefresh = false;
+    protected $blnIsChangeObject = false;
     protected $blnUseWrapper = true;
 
     /** @var string */
@@ -52,6 +54,8 @@ class PopupCroppie extends PopupCroppieGen
     protected $strCancelClass = 'btn-default';
     /** @var string */
     protected $strCancelText = 'Cancel';
+    /** @var string */
+    protected $strFinalPath = null;
 
     /**
      * @param $objParentObject
@@ -163,7 +167,7 @@ class PopupCroppie extends PopupCroppieGen
         $strHtml .= _nl(_indent('</div>', 4));
         $strHtml .= _nl(_indent('</div>', 3));
         $strHtml .= _nl(_indent('<div class="modal-footer">', 3));
-        $strHtml .= _nl(_indent('<button type="button" class="btn ' . $this->strSaveClass . ' btn-crop">' . t($this->strSaveText) . '</button>', 4));
+        $strHtml .= _nl(_indent('<button type="button" class="btn ' . $this->strSaveClass . ' btn-crop" data-event="false">' . t($this->strSaveText) . '</button>', 4));
         $strHtml .= _nl(_indent('<button type="button" class="btn ' . $this->strCancelClass . '" data-btnid="Cancel" data-dismiss="modal">' . t($this->strCancelText) . '</button>', 4));
         $strHtml .= _nl(_indent('</div>', 3));
         $strHtml .= _nl(_indent('</div>', 2));
@@ -171,30 +175,6 @@ class PopupCroppie extends PopupCroppieGen
         $strHtml .= '</div>';
 
         return $strHtml;
-    }
-
-    public function getEndScript()
-    {
-        $strJS = parent::getEndScript();
-
-        $strCtrlJs = <<<FUNC
-$(document).ready(function() {
-    var btn_crop = document.querySelector(".btn-crop");
-    changeObject();
-
-    changeObject = function() {
-        btn_crop.on("changeobject", function(event) {
-           qcubed.recordControlModification(".btn-crop", "_IsChangeObject", true);
-        });
-
-        var ChangeObjectEvent = $.Event("changeobject");
-        btn_crop.trigger(ChangeObjectEvent);
-    }
-});
-FUNC;
-        Application::executeJavaScript($strCtrlJs, Application::PRIORITY_HIGH);
-
-        return $strJS;
     }
 
     /**
@@ -212,6 +192,7 @@ FUNC;
             case "SaveText": return $this-strSaveText;
             case "CancelClass": return $this->strCancelClass;
             case "CancelText": return $this->strCancelText;
+            case 'FinalPath': return $this->strFinalPath;
 
             default:
                 try {
@@ -233,6 +214,14 @@ FUNC;
     public function __set($strName, $mixValue)
     {
         switch ($strName) {
+            case '_finalPath': // Internal only to output the cropped image name with relative path after saving.
+                try {
+                    $this->strFinalPath = Type::cast($mixValue, Type::STRING);
+                    break;
+                } catch (InvalidCast $objExc) {
+                    $objExc->incrementOffset();
+                    throw $objExc;
+                }
             case '_IsChangeObject': // Internal only to detect when recording is triggered.
                 try {
                     $this->blnIsChangeObject = Type::cast($mixValue, Type::BOOLEAN);
@@ -241,8 +230,6 @@ FUNC;
                     $objExc->incrementOffset();
                     throw $objExc;
                 }
-
-
             case "HeaderTitle":
                 try {
                     $this->strHeaderTitle = Type::Cast($mixValue, Type::STRING);

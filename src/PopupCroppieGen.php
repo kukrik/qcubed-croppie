@@ -19,14 +19,14 @@ use QCubed\Type;
  */
 
 /**
+ * @property string $Url Default null. If you want to save the cropped image, choose a php file with upload functions.
+ * @property string $Language Default null. If you want to choose a language, set the desired language as the language selection.
+ * @property string $SelectedImage Default null. Select the image to crop and set it to this variable.
+ * @property string $SelectedType Default 'square'. If desired, the default can be set to 'circle.'
+ * @property array $Theme Default null. For the default theme, Select 2 displays its own template.
+ * @property array $Data Default null.
+ * @property string $TranslatePlaceholder Default text '- Select a destination -'. If necessary, the text can be rewritten.
  *
- * @property string $Url
- * @property string $Language
- * @property string $SelectedImage
- * @property string $SelectedType
- * @property string $TranslatePlaceholder
- * @property array $Theme
- * @property array $Data
  *
  * See also: http://foliotek.github.io/Croppie/
  *
@@ -58,9 +58,9 @@ class PopupCroppieGen extends Q\Control\Panel
         if (!is_null($val = $this->Language)) {$jqOptions['language'] = $val;}
         if (!is_null($val = $this->SelectedImage)) {$jqOptions['selectedImage'] = $val;}
         if (!is_null($val = $this->SelectedType)) {$jqOptions['selectedType'] = $val;}
-        if (!is_null($val = $this->TranslatePlaceholder)) {$jqOptions['translatePlaceholder'] = $val;}
         if (!is_null($val = $this->Theme)) {$jqOptions['theme'] = $val;}
         if (!is_null($val = $this->Data)) {$jqOptions['data'] = $val;}
+        if (!is_null($val = $this->TranslatePlaceholder)) {$jqOptions['translatePlaceholder'] = $val;}
         return $jqOptions;
     }
 
@@ -214,18 +214,11 @@ class PopupCroppieGen extends Q\Control\Panel
             case '_IsOpen': // Internal only, to detect when dialog has been opened or closed.
                 try {
                     $this->blnIsOpen = Type::cast($mixValue, Type::BOOLEAN);
-
-                    // Setup wrapper style in case dialog is redrawn while it is open.
-                    if (!$this->blnIsOpen) {
-                        // dialog is closing, so reset all validation states.
-                        $this->Form->resetValidationStates();
-                    }
+                    break;
                 } catch (InvalidCast $objExc) {
                     $objExc->incrementOffset();
                     throw $objExc;
-                }
-                break;
-            case 'AutoOpen':    // the JQueryUI name of this option
+                }            case 'AutoOpen':    // the JQueryUI name of this option
             case 'Show':    // the Bootstrap name of this option
                 try {
                     $this->blnAutoOpen = Type::cast($mixValue, Type::BOOLEAN);
@@ -234,7 +227,6 @@ class PopupCroppieGen extends Q\Control\Panel
                     $objExc->incrementOffset();
                     throw $objExc;
                 }
-
 
             default:
                 try {
@@ -257,5 +249,3 @@ class PopupCroppieGen extends Q\Control\Panel
         return array_merge(parent::GetModelConnectorParams(), array());
     }
 }
-
-

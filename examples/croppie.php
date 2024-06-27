@@ -42,7 +42,7 @@ class ExamplesForm extends Form
         $this->dlgPopup->SaveText = t("Crop and save");
         $this->dlgPopup->CancelText = t("Cancel");
 
-        $this->dlgPopup->addAction(new Q\Plugin\ChangeObject(), new \QCubed\Action\Ajax('objChangeObject_Click'));
+        $this->dlgPopup->addAction(new Q\Plugin\Event\ChangeObject(), new \QCubed\Action\Ajax('objChangeObject_Click'));
 
 
         if ($this->dlgPopup->Language) {
@@ -67,7 +67,7 @@ class ExamplesForm extends Form
 
     public function objChangeObject_Click(ActionParams $params)
     {
-        Application::displayAlert("Works???");
+        Application::displayAlert($this->dlgPopup->FinalPath /*"Works???"*/);
     }
 }
 ExamplesForm::Run('ExamplesForm');

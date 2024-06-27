@@ -9,7 +9,6 @@
             selectedType: 'square',  // Default value
             translatePlaceholder: '- Select a destination -',
             show: false
-
         }, options)
 
         var modalElement = document.querySelector(".modal");
@@ -294,6 +293,8 @@
 
         /////////////////////////////////////
 
+        var finalPath = null;
+
         $('.btn-crop').on('click', function () {
             $('#cropImage').croppie('result', {
                 type: 'canvas',
@@ -312,15 +313,40 @@
                 // Get folderId based on the selected value
                 var folderId = getFolderIdById(parsedData, selectedValue);
 
-                //console.log(folderId)
-
                 data.append("cropImage", resp);
                 data.append("fileName", fileName);
                 data.append("relativePath", selectedValue);
                 data.append("folderId", folderId); // Add folderId to the form data
                 xhr.open('POST', options.url, true);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        finalPath = response.path; // Save the final path
+
+                        if (finalPath) {
+                            // Record the control modification in QCubed
+                            qcubed.recordControlModification(id, "_finalPath", finalPath);
+                        }
+
+                        $(this).data('event', true);
+                        changeObject();
+                    }
+                };
+
                 xhr.send(data);
             });
+
+            function changeObject() {
+                var btnCrop = $(".btn-crop");
+
+                if (btnCrop.data('event') === true) {
+                    qcubed.recordControlModification(btnCrop, "_IsChangeObject", true);
+                }
+
+                var ChangeObjectEvent = $.Event("changeobject");
+                btnCrop.trigger(ChangeObjectEvent);
+            }
         });
         return this;
     }
